@@ -13,14 +13,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build APK with Buildozer
-        uses: digreatbrian/buildozer-action@v2
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
         with:
-          python-version: '3.11'
-          buildozer-cmd: buildozer -v android debug
+          buildozer_version: stable
+          workdir: .
+          command: buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: KIRAYEDAAR-APK
-          path: bin/*.apk
+          path: ${{ steps.buildozer.outputs.filename }}
