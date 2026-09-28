@@ -17,12 +17,12 @@ jobs:
         run: |
           docker run --rm \
             --entrypoint /bin/bash \
+            -e BUILDOZER_WARN_ON_ROOT=0 \
             -v ${{ github.workspace }}:/home/user/hostcwd \
             -v ${{ github.workspace }}/.buildozer:/home/user/.buildozer \
             kivy/buildozer -c "
-              yes | sdkmanager --licenses || true
               cd /home/user/hostcwd
-              buildozer -v android debug
+              echo 'y' | buildozer -v android debug
             "
 
       - name: Upload APK
