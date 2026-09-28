@@ -22,16 +22,7 @@ jobs:
             -v ${{ github.workspace }}/.buildozer:/root/.buildozer \
             kivy/buildozer -c '
               cd /home/user/hostcwd
-
-              # Force accept licenses
-              mkdir -p /root/.buildozer/android/platform/android-sdk/licenses
-              echo -e "\n24333f8a63b6825ea9c5514f6c6846ee" > /root/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
-              echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > /root/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
-              echo -e "\nd56f5187479451eabf01fb78af6dfcb131a6481e" > /root/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
-              echo -e "\n24333f8a63b6825ea9c5514f6c6846ee" > /root/.android/licenses/android-sdk-license 2>/dev/null || true
-
-              yes | buildozer -v android debug || true
-              buildozer -v android debug
+              printf "y\n" | buildozer -v android debug
             '
 
       - name: Upload APK
